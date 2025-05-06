@@ -23,7 +23,7 @@ my $res = GetOptions ("db=s"       => \$db_name,
                       "host=s"     => \$db_host,
                       "port=i"     => \$db_port,
                       "user=s"     => \$db_user,
-                      "password=s" => \$db_pass,
+                      "password:s" => \$db_pass,
                       "table=s"    => \$db_table,
                       "help|?"     => \$help
                      );
