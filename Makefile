@@ -12,8 +12,8 @@ all: constraints_parser page_parser innochecksum ibdconnect
 lib: 
 	mkdir lib
 
-lib/print_data.o: lib print_data.c include/print_data.h include/tables_dict.h
-	gcc $(CFLAGS) -g $(INCLUDES) -c print_data.c -o lib/print_data.o 
+lib/print_data.o: lib print_data.c include/print_data.h include/tables_dict.h lib/check_data.o
+	gcc $(CFLAGS) -g $(INCLUDES) -c print_data.c -o lib/print_data.o lib/check_data.o
 
 lib/check_data.o: lib check_data.c include/check_data.h include/tables_dict.h
 	gcc $(CFLAGS) -g $(INCLUDES) -c check_data.c -o lib/check_data.o

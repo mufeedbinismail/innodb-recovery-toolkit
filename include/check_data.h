@@ -10,7 +10,10 @@ ibool check_char_ascii(char *value, ulint len);
 ibool check_char_digits(char *value, ulint len);
 ibool check_field_limits(field_def_t *field, byte *value, ulint len);
 
-inline ulonglong make_ulonglong(dulint x);
-inline longlong make_longlong(dulint x);
+extern inline ulonglong make_ulonglong(dulint x);
+extern inline longlong make_longlong(dulint x);
+
+unsigned long long int get_uint_value(field_def_t *field, byte *value);
+long long int get_int_value(field_def_t *field, byte *value);
 
 #endif

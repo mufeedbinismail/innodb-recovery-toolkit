@@ -1,5 +1,7 @@
-#include <print_data.h>
 #include <decimal.h>
+
+#include "print_data.h"
+#include "check_data.h"
 
 static byte buffer[UNIV_PAGE_SIZE * 2];
 extern char blob_dir[256];
@@ -99,46 +101,6 @@ inline void print_time(ulong ltime) {
 /*******************************************************************/
 inline void print_enum(int value, field_def_t *field) {
 	printf("\"%s\"", field->limits.enum_values[value-1]);
-}
-
-/*******************************************************************/
-inline unsigned long long int get_uint_value(field_def_t *field, byte *value) {
-	switch (field->fixed_length) {
-		case 1: return mach_read_from_1(value);
-		case 2: return mach_read_from_2(value);
-		case 3: return mach_read_from_3(value) & 0x3FFFFFUL;
-		case 4: return mach_read_from_4(value);
-		case 8: return make_ulonglong(mach_read_from_8(value));
-	}
-	return 0;
-}
-
-/*******************************************************************/
-inline long long int get_int_value(field_def_t *field, byte *value) {
-	char v1;
-	short int v2;
-	int v3, v4;
-	long int v8;
-	switch (field->fixed_length) {
-		case 1: v1 = (mach_read_from_1(value) & 0x7F) | ((~mach_read_from_1(value)) & 0x80);
-			return v1;
-		case 2: v2 = (mach_read_from_2(value) & 0x7FFF) | ((~mach_read_from_2(value)) & 0x8000);
-			return v2;
-		case 3: v3 = mach_read_from_3(value);
-			if((v3 >> 23) == 1){
-				// Positive
-				v3 &= 0x007FFFFF;
-			}else{
-				// Negative
-				v3 |= 0xFFFF8000;
-			}
-			return v3;
-		case 4: v4 = (mach_read_from_4(value) & 0x7FFFFFFF) | ((~mach_read_from_4(value)) & 0x80000000);
-			return v4;
-		case 8: v8 = (make_ulonglong(mach_read_from_8(value)) & 0x7FFFFFFFFFFFFFFFUL) | ((~make_ulonglong(mach_read_from_8(value))) & 0x8000000000000000UL);
-			return v8;
-	}
-	return 0;
 }
 
 /*******************************************************************/
