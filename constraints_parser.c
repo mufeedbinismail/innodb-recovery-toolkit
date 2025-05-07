@@ -334,7 +334,7 @@ static inline ibool ibrec_init_offsets_old(page_t *page, rec_t* rec, table_def_t
 }
 
 /*******************************************************************/
-inline ibool check_for_a_record(page_t *page, rec_t *rec, table_def_t *table, ulint *offsets) {
+ibool check_for_a_record(page_t *page, rec_t *rec, table_def_t *table, ulint *offsets) {
 	ulint offset, data_size;
     int flag;
 
@@ -377,7 +377,7 @@ inline ibool check_for_a_record(page_t *page, rec_t *rec, table_def_t *table, ul
 }
 
 /*******************************************************************/
-inline bool check_page_format(page_t *page) {
+ibool check_page_format(page_t *page) {
 	if (process_redundant && page_is_comp(page)) {
 		if (debug) printf("Page is in COMPACT format while we're looking for REDUNDANT - skipping\n");
 		return FALSE;

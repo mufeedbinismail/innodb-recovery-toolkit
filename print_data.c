@@ -1,3 +1,4 @@
+#include <univ.i>
 #include <decimal.h>
 
 #include "print_data.h"
@@ -99,12 +100,12 @@ inline void print_time(ulong ltime) {
 
 
 /*******************************************************************/
-inline void print_enum(int value, field_def_t *field) {
+void print_enum(int value, field_def_t *field) {
 	printf("\"%s\"", field->limits.enum_values[value-1]);
 }
 
 /*******************************************************************/
-inline void print_string(char *value, ulint len, field_def_t *field) {
+void print_string(char *value, ulint len, field_def_t *field) {
     uint i, num_spaces = 0, out_pos = 0;
     static char out[32768];
     
@@ -147,7 +148,7 @@ inline void print_string(char *value, ulint len, field_def_t *field) {
 }
 
 /*******************************************************************/
-inline void print_decimal(byte *value, field_def_t *field) {
+void print_decimal(byte *value, field_def_t *field) {
     char string_buf[256];
     decimal_digit_t dec_buf[256];
     int len = 255;
@@ -162,7 +163,7 @@ inline void print_decimal(byte *value, field_def_t *field) {
 }
 
 /*******************************************************************/
-inline void print_field_value(byte *value, ulint len, field_def_t *field) {
+void print_field_value(byte *value, ulint len, field_def_t *field) {
 	time_t t;
 
 	switch (field->type) {

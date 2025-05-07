@@ -71,7 +71,7 @@ inline ibool check_datetime(ulonglong ldate) {
 }
 
 /*******************************************************************/
-inline ibool check_char_ascii(char *value, ulint len) {
+ibool check_char_ascii(char *value, ulint len) {
 	char *p = value;
 	if (!len) return TRUE;
 	do {
@@ -81,7 +81,7 @@ inline ibool check_char_ascii(char *value, ulint len) {
 }
 
 /*******************************************************************/
-inline ibool check_char_digits(char *value, ulint len) {
+ibool check_char_digits(char *value, ulint len) {
 	char *p = value;
 	if (!len) return TRUE;
 	do {
@@ -95,8 +95,7 @@ inline ibool check_char_digits(char *value, ulint len) {
 // Returns TRUE/FALSE upon match/mismatch respectively.
 // The function recomputes the regular expression per call. There is
 // no caching of regex. This can be optimized later on.
-/*******************************************************************/
-inline ibool regex_match(const char *string, char *pattern) {
+ibool regex_match(const char *string, char *pattern) {
 	int status;
 	regex_t re;
 	if(regcomp(&re, pattern, REG_EXTENDED|REG_NOSUB) != 0)
@@ -114,8 +113,7 @@ inline ibool regex_match(const char *string, char *pattern) {
 // Given value is not null terminated. When len < 4096, use staticly
 // allocated buffer; otherwise, allecate with malloc.
 // For long texts, this means a lot of overhead.
-/*******************************************************************/
-inline ibool check_regex_match(char *value, ulint len, char *pattern)
+ibool check_regex_match(char *value, ulint len, char *pattern)
 {
 	static char prefix[MAX_CHAR_PREFIX_LENGTH + 1];
 	char * null_terminated_value = NULL ;
